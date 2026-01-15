@@ -6,7 +6,7 @@ session_start();
 $error = '';
 $validate = '';
 
-if( isset($_SESSION['username']) ) header('Location: index.php');
+//if( isset($_SESSION['username']) ) header('Location: login.php');
 
 if( isset($_POST['submit']) ){
         
@@ -26,7 +26,7 @@ if( isset($_POST['submit']) ){
                 if(password_verify($password, $hash)){
                     $_SESSION['username'] = $username;
                
-                    header('Location: index.php');
+                    header('Location: login.php');
                 }
                             
             } else {

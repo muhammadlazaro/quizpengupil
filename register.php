@@ -14,7 +14,7 @@ session_start();
 
 $error = '';
 $validate = '';
-if( isset($_SESSION['user']) ) header('Location: index.php');
+if( isset($_SESSION['user']) ) header('Location: login.php');
 if( isset($_POST['submit']) ){
         
         $username = stripslashes($_POST['username']);
@@ -29,13 +29,13 @@ if( isset($_POST['submit']) ){
         $repass   = mysqli_real_escape_string($con, $repass);
         if(!empty(trim($name)) && !empty(trim($username)) && !empty(trim($email)) && !empty(trim($password)) && !empty(trim($repass))){
             if($password == $repass){
-                if( cek_nama($name,$con) == 0 ){
+                if( cek_nama($username,$con) == 0 ){
                     $pass  = password_hash($password, PASSWORD_DEFAULT);
-                    $query = "INSERT INTO users (username,name,email, password ) VALUES ('$username','$nama','$email','$pass')";
+                    $query = "INSERT INTO users (username,name,email, password ) VALUES ('$username','$name','$email','$pass')";
                     $result   = mysqli_query($con, $query);
                     if ($result) {
                         $_SESSION['username'] = $username;                       
-                        header('Location: index.php');                    
+                        header('Location: login.php');                    
                     } else {
                         $error =  'Register User Gagal !!';
                     }
