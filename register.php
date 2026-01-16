@@ -9,7 +9,7 @@
  
 <body>
 <?php
-require('koneksi.php');
+require_once 'koneksi.php';
 session_start();
 
 $error = '';

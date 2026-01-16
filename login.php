@@ -1,44 +1,41 @@
 <?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
-require('koneksi.php');
+require_once 'koneksi.php';
 session_start();
 
 $error = '';
 $validate = '';
 
-//if( isset($_SESSION['username']) ) header('Location: login.php');
+if (isset($_POST['submit'])) {
 
-if( isset($_POST['submit']) ){
-        
-        $username = stripslashes($_POST['username']);
-        $username = mysqli_real_escape_string($con, $username);
-        $password = stripslashes($_POST['password']);
-        $password = mysqli_real_escape_string($con, $password);
-       
-        if(!empty(trim($username)) && !empty(trim($password))){
+    $username = mysqli_real_escape_string($con, $_POST['username'] ?? '');
+    $password = mysqli_real_escape_string($con, $_POST['password'] ?? '');
 
-            $query      = "SELECT * FROM users WHERE username = '$username'";
-            $result     = mysqli_query($con, $query);
-            $rows       = mysqli_num_rows($result);
+    if ($username !== '' && $password !== '') {
 
-            if ($rows != 0) {
-                $hash   = mysqli_fetch_assoc($result)['password'];
-                if(password_verify($password, $hash)){
-                    $_SESSION['username'] = $username;
-               
-                    header('Location: login.php');
-                }
-                            
+        $query  = "SELECT * FROM users WHERE username='$username'";
+        $result = mysqli_query($con, $query);
+
+        if ($result && mysqli_num_rows($result) === 1) {
+            $user = mysqli_fetch_assoc($result);
+            if (password_verify($password, $user['password'])) {
+                $_SESSION['username'] = $username;
+                header("Location: login.php");
+                exit;
             } else {
-                $error =  'Register User Gagal !!';
+                $error = "Password salah !!";
             }
-            
-        }else {
-            $error =  'Data tidak boleh kosong !!';
+        } else {
+            $error = "User tidak terdaftar !!";
         }
-    } 
-
+    } else {
+        $error = "Data tidak boleh kosong !!";
+    }
+}
 ?>
+
 
 
 <!DOCTYPE html>

@@ -1,11 +1,18 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
-from driver import create_driver
 import sys
 import os
+from selenium.webdriver.chrome.options import Options
 
-BASE_URL = "http://localhost/quizpengupil"
+BASE_URL = "http://localhost:8080"
+
+def create_driver():
+    options = Options()
+    options.add_argument("--headless=new")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    return webdriver.Chrome(options=options)
 
 def setup_module(module):
     global driver

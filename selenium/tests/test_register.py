@@ -6,7 +6,7 @@ from driver import create_driver
 import sys
 import os
 
-BASE_URL = "http://localhost/quizpengupil"
+BASE_URL = "http://localhost:8080"
 
 def setup_module(module):
     global driver, rand
