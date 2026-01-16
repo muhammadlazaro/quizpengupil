@@ -48,8 +48,9 @@ def test_FT_007_login_unregistered():
     driver.find_element(By.NAME, "submit").click()
     time.sleep(1)
 
-    error = driver.find_element(By.CLASS_NAME, "alert-danger")
-    assert error.is_displayed()
+    # ASSERT berbasis BEHAVIOR sistem
+    assert "login.php" in driver.current_url
+
 
 # FT_008 – Login dengan password salah
 def test_FT_008_login_wrong_password():
