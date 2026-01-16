@@ -25,7 +25,7 @@ jobs:
 
     - name: Start application with Docker
       run: |
-        docker-compose up -d
+        docker compose up -d
         docker ps
 
     - name: Wait for web app
@@ -40,4 +40,4 @@ jobs:
 
     - name: Shutdown containers
       if: always()
-      run: docker-compose down -v
+      run: docker compose down -v
