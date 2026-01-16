@@ -2,14 +2,16 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
 import random
+from driver import create_driver
+import sys
+import os
 
 BASE_URL = "http://localhost/quizpengupil"
 
 def setup_module(module):
     global driver, rand
-    driver = webdriver.Chrome()
-    driver.maximize_window()
-    rand = random.randint(1000, 9999)
+    driver = create_driver()
+    rand = random.randint(1000,9999)
 
 def teardown_module(module):
     driver.quit()

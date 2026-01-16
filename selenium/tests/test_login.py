@@ -1,13 +1,15 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
+from driver import create_driver
+import sys
+import os
 
 BASE_URL = "http://localhost/quizpengupil"
 
 def setup_module(module):
     global driver
-    driver = webdriver.Chrome()
-    driver.maximize_window()
+    driver = create_driver()
 
 def teardown_module(module):
     driver.quit()
